@@ -3,6 +3,7 @@ package utils;
 import java.util.NoSuchElementException;
 
 public interface List<E> {
+	Iterator<E> iterator();
 
     int size();
 
