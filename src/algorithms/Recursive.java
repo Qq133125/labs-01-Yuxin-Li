@@ -9,25 +9,47 @@ package algorithms;
 public class Recursive {
 
     public static int binarySearch(int[] data, int target) {
-        return 0;
+    	int low = 0;
+        int high = data.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (data[mid] == target) {
+                return mid;
+            } else if (data[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return -1; // Target not found
     }
 
     private static int binarySearch(int[] data, int target, int min, int max) {
-        return 0;
+    	return binarySearch(data, target, 0, data.length - 1);
     }
 
     //TODO: Complete the following helper method for the corresponding
     //      sorting algorithm
     private static int[] getFirstHalf(int[] data) {
         //TODO : update to get first half of array
-        return null;
+    	int size = data.length / 2;
+        int[] firstHalf = new int[size];
+        System.arraycopy(data, 0, firstHalf, 0, size);
+        return firstHalf;
     }
 
     //TODO: Complete the following helper method for the corresponding
     //      sorting algorithm
     private static int[] getSecondHalf(int[] data) {
         //TODO : update to get second half of array
-        return null;
+    	int size1 = data.length / 2;
+        int size2 = data.length - size1;
+        int[] secondHalf = new int[size2];
+        System.arraycopy(data, size1, secondHalf, 0, size2);
+        return secondHalf;
     }
 
 
@@ -35,12 +57,35 @@ public class Recursive {
     //      sorting algorithm
     private static void merge(int[] data, int[] left, int[] right) {
         //TODO: complete body
+    	int i = 0, j = 0, k = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] < right[j]) {
+            	data[k++] = left[i++];
+            } else {
+            	data[k++] = right[j++];
+            }
+        }
+        while (i < left.length) {
+        	data[k++] = left[i++];
+        }
+        while (j < right.length) {
+        	data[k++] = right[j++];
+        }
     }
 
     //TODO: Complete the following sorting algorithm
     public static void mergeSort(int[] data) {
         //TODO: RECURSIVE CASE
         //TODO: complete body
+    	if (data.length > 1) {
+            int[] left = getFirstHalf(data);
+            int[] right = getSecondHalf(data);
+
+            mergeSort(left);
+            mergeSort(right);
+
+            merge(data, left, right);
+        }
 
     }
 
@@ -48,14 +93,34 @@ public class Recursive {
     //      sorting algorithm
     private static int partition(int[] data, int low, int high) {
         //TODO: update with partition algorithm
+    	int pivot = data[high];
+        int i = (low - 1); // Index of smaller element
 
-        return 0;
+        for (int j = low; j < high; j++) {
+            // If current element is smaller than or equal to pivot
+            if (data[j] <= pivot) {
+                i++;
+
+                // Swap data[i] and data[j]
+                int temp = data[i];
+                data[i] = data[j];
+                data[j] = temp;
+            }
+        }
+
+        // Swap data[i+1] and data[high] (or pivot)
+        int temp = data[i + 1];
+        data[i + 1] = data[high];
+        data[high] = temp;
+
+        return i + 1; // Return the partitioning index
     }
 
 
     //TODO: Complete the following sorting algorithm
     public static void quickSort(int[] data) {
         //TODO : update to call helper method
+    	quickSort(data, 0, data.length - 1);
     }
 
 
@@ -63,12 +128,18 @@ public class Recursive {
     //          sorting algorithm
     private static void quickSort(int[] data, int min, int max) {
         //TODO: update to partition list
+    	 if (min < max) {
+             int pivotIndex = partition(data, min, max);
+             quickSort(data, min, pivotIndex - 1); // Sort the left part
+             quickSort(data, pivotIndex + 1, max); // Sort the right part
+         }
     }
 
 
     //TODO: Complete the following sorting algorithm
     public static void selectionSort(int[] data) {
         //TODO: complete body
+    	selectionSort(data, 0);
     }
 
 
@@ -76,12 +147,25 @@ public class Recursive {
     //      using for loops and swap method (see below)
     private static void selectionSort(int[] data, int start) {
         //TODO: complete body
+    	if (start < data.length - 1) {
+            int minIndex = start;
+            for (int i = start + 1; i < data.length; i++) {
+                if (data[i] < data[minIndex]) {
+                    minIndex = i;
+                }
+            }
+            swap(data, start, minIndex);
+            selectionSort(data, start + 1);
+        }
     }
 
     //TODO: Complete and use the following swap method for
     //      sorting algorithm that require swapping of data
     public static void swap(int[] data, int a, int b) {
         //TODO: complete body
+    	 int temp = data[a];
+         data[a] = data[b];
+         data[b] = temp;
     }
 
 }

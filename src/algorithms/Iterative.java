@@ -12,20 +12,52 @@ public class Iterative {
     //      use while loops here
     public static int binarySearch(int[] data, int target){
         //TODO: update with search algorithm
+    	int left = 0;
+        int right = data.length - 1;
 
-        return 0;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (data[mid] == target) {
+                return mid;
+            } else if (data[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return -1; // target not found
     }
 
 
     //TODO: Complete the following sorting algorithm
     public static void bubbleSort(int[] data) {
         //TODO: Implement the algorithm for this sort.
+    	int n = data.length;
+        boolean swapped;
+
+        do {
+            swapped = false;
+            for (int i = 1; i < n; i++) {
+                if (data[i - 1] > data[i]) {
+                    swap(data, i - 1, i);
+                    swapped = true;
+                }
+            }
+            n--;
+        } while (swapped);
     }
 
 
     //TODO: Complete this search algorithm to check if an element is in array
     public static boolean contains(int[] data, int target) {
         //TODO: update with search algorithm
+    	for (int value : data) {
+            if (value == target) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -34,13 +66,27 @@ public class Iterative {
     //      use for loops here
     public static int indexOf(int[] data, int target) {
         //TODO: update with search algorithm
-        return 0;
+    	for (int i = 0; i < data.length; i++) {
+            if (data[i] == target) {
+                return i;
+            }
+        }
+        return -1; // target not found
     }
 
 
     //TODO: Complete the following insertion sorting algorithm with the swap method
     public static void insertionSort(int[] data) {
         //TODO: Implement the algorithm for this sort.
+    	for (int i = 1; i < data.length; i++) {
+            int current = data[i];
+            int j = i - 1;
+            while (j >= 0 && data[j] > current) {
+                data[j + 1] = data[j];
+                j--;
+            }
+            data[j + 1] = current;
+        }
     }
 
 
@@ -66,6 +112,15 @@ public class Iterative {
     //TODO: Complete the following selection sorting algorithm using swap method
     public static void selectionSort(int[] data) {
         //TODO: Implement the algorithm for this sort.
+    	for (int i = 0; i < data.length - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < data.length; j++) {
+                if (data[j] < data[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            swap(data, i, minIndex);
+        }
     }
 
 
@@ -73,6 +128,9 @@ public class Iterative {
     //      sorting algorithm that require swapping of data
     public static void swap(int[] data, int a, int b) {
         //TODO: Complete Body
+    	int temp = data[a];
+        data[a] = data[b];
+        data[b] = temp;
     }
 
 }
