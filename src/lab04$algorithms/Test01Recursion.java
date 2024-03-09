@@ -4,22 +4,39 @@ public class Test01Recursion {
 
    public static int fac(int n) {
         //TODO: COMPLETE BODY
-        return 0;
+	   if (n == 0) {
+           return 1; // Base case
+       } else {
+           return n * fac(n - 1); // Recursive step
+       }
     }
 
     public static boolean isPalindrome(String s) {
-        //TODO : COMPLETE BODY
-        return false;
+    	if (s.length() <= 1) {
+            return true; // Base case: empty or one character string
+        } else if (s.charAt(0) != s.charAt(s.length() - 1)) {
+            return false; // If first and last characters do not match
+        } else {
+            return isPalindrome(s.substring(1, s.length() - 1)); // Check the substring without the first and last character
+        }
     }
 
     public static double pow(double x, int n) {
-        //TODO: COMPLETE BODY
-        return 0;
+    	if (n == 0) {
+            return 1; // Base case
+        } else if (n > 0) {
+            return x * pow(x, n - 1); // Recursive step for positive n
+        } else {
+            return 1 / pow(x, -n); // Recursive step for negative n
+        }
     }
 
     public static int sum(int n) {
-        //TODO : COMPLETE BODY
-        return 0;
+    	if (n <= 1) {
+            return n; // Base case
+        } else {
+            return n + sum(n - 1); // Recursive step
+        }
     }
 
 

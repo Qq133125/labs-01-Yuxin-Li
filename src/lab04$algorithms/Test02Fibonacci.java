@@ -9,22 +9,31 @@ public class Test02Fibonacci {
 
     public static long fib(int n) {
         //TODO : COMPLETE BODY OF RECURSIVE METHOD
-        return 0;
+    	 if (n <= 1) return n;
+         else return fib(n-1) + fib(n-2);
     }
 
     public static long ifib(int n) {
-        //TODO : COMPLETE BODY OF ITERATIVE METHOD
-        return 0;
+    	if (n <= 1) return n;
+        long a = 0, b = 1;
+        for (int i = 2; i <= n; i++) {
+            long c = a + b;
+            a = b;
+            b = c;
+        }
+        return b;
     }
 
     public static long mfib(int n) {
-        //TODO : COMPLETE BODY OF MEMOIZATION METHOD
-        return 0;
+    	int[] memo = new int[n + 1];
+        return memo(n, memo);
     }
 
     private static long memo(int n, int[] x) {
-        //TODO : COMPLETE BODY OF MEMOIZATION HELPER METHOD
-        return 0;
+    	 if (n <= 1) return n;
+         if (x[n] != 0) return x[n]; // Return cached value if already computed
+         x[n] = (int)(memo(n - 1, x) + memo(n - 2, x)); // Compute, cache, and return the result
+         return x[n];
     }
 
 
